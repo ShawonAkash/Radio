@@ -7,7 +7,7 @@ import {
 export const stationListReducer = (state = { stations: [] }, action) => {
   switch (action.type) {
     case STATION_LIST_REQUEST:
-      return { loading: true }
+      return { loading: true, stations: [] }
     case STATION_LIST_SUCCESS:
       return { loading: false, stations: action.payload }
     case STATION_LIST_FAILED:

@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import minus from '../../asset/minus.png'
 import logo from '../../asset/logo.png'
 import plus from '../../asset/plus.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { listStations } from '../../actions/stationActions'
 
 function RadioBody(props) {
-  const { channelList, selectedChannel, onSelectChannel } = props
+  const { stations, selectedChannel, onSelectChannel } = props
+  const [selectedStation, setSelectedStation] = useState([])
+  // const dispatch = useDispatch()
+
+  // const stationList = useSelector((state) => state.stationList)
+  // const { loading, error, stations } = stationList
+  // console.log(stations)
+
+  // useEffect(() => {
+  //   dispatch(listStations())
+  // }, [dispatch])
 
   function showChannelDetail(channel) {
     if (selectedChannel && selectedChannel === channel) {
@@ -45,15 +57,15 @@ function RadioBody(props) {
     <div className='overflow-y-auto text-[60px] pt-[15px]'>
       <table className='w-[630px] mx-auto'>
         <tbody>
-          {channelList.map((channel) => {
+          {stations.map((station) => {
             return (
-              <React.Fragment key={channel.freq}>
+              <React.Fragment key={station.freq}>
                 <tr
-                  key={channel.freq}
-                  onClick={() => onSelectChannel(channel)}
+                  key={station.freq}
+                  onClick={() => onSelectChannel(station)}
                   className='border-b-[1px] border-b-[#45494d] cursor-pointer'
                 >
-                  {showChannelDetail(channel)}
+                  {showChannelDetail(station)}
                 </tr>
               </React.Fragment>
             )
