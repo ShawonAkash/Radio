@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import {
   getUserDetails,
   updateUserProfile,
@@ -8,7 +8,7 @@ import {
 } from '../../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 
-const User = ({ location, history }) => {
+const User = ({ history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -62,7 +62,7 @@ const User = ({ location, history }) => {
     }
   }
   const handleDeleteUser = (id) => {
-    if (window.confirm('Are you sure')) {
+    if (window.confirm('You are about to get')) {
       dispatch(deleteUser(id))
     }
   }

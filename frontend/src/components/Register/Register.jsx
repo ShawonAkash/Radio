@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import { register } from '../../actions/userActions'
 
 const Register = ({ location, history }) => {
