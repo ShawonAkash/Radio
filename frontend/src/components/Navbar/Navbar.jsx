@@ -30,9 +30,12 @@ const Navbar = () => {
                   </Link>
                   {userInfo ? (
                     <div>
-                      <a className='text-gray-300  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium'>
+                      <Link
+                        to={'/editUser'}
+                        className='text-gray-300  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                      >
                         {userInfo.name}
-                      </a>
+                      </Link>
                       <a
                         onClick={logoutHandler}
                         className='text-gray-300 hover:cursor-pointer  hover:text-gray-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium'

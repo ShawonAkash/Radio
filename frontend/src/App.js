@@ -6,13 +6,14 @@ import Radio from './components/radio/Radio'
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import Navbar from './components/Navbar/Navbar'
-
+import User from './components/User/User'
 class App extends Component {
   render() {
     return (
       <Router>
         <Navbar />
         <div className='w-full h-[1200px] text-[#a2abbd] leading-[80px] bg-gradient-to-b from-[#21212b] to-[#21212b] pt-[20px]'>
+          <Route path='/editUser' component={User} />
           <Route path='/register' component={Register} />
           <Route path='/login' component={Login} />
           <Route path='/' component={Radio} exact />

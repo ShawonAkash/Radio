@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify'
-import { register } from '../../actions/userActions'
+import { getUserDetails, updateUserProfile } from '../../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 
-const Register = ({ location, history }) => {
+const User = ({ location, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,34 +20,47 @@ const Register = ({ location, history }) => {
     theme: '#2b2b36',
   }
 
-  const userRegister = useSelector((state) => state.userRegister)
-  const { loading, error, userInfo } = userRegister
+  const userDetails = useSelector((state) => state.userDetails)
+  const { loading, error, user } = userDetails
 
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+  const { success } = userUpdateProfile
 
   useEffect(() => {
-    if (userInfo) {
-      history.push(redirect)
+    if (!userInfo) {
+      history.push('/login')
+    } else {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET })
+        dispatch(getUserDetails('profile'))
+      } else {
+        setName(user.name)
+        setEmail(user.email)
+      }
     }
-  }, [history, userInfo, redirect])
+  }, [dispatch, history, userInfo, user, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if (error) {
-      toast.error(error, toastOptions)
-    }
     if (password !== confirmPassword) {
       toast.error('Passwords do not match', toastOptions)
     } else {
-      dispatch(register(name, email, password))
+      dispatch(updateUserProfile({ id: user._id, name, email, password }))
+      setPassword('')
+      setConfirmPassword('')
+      toast.success('Profile Updated', toastOptions)
     }
   }
+
   return (
     <>
       <div className='bg-[#2b2b36] w-[695px] h-[800px] mx-auto rounded-[50px] overflow-hidden flex flex-col justify-between drop-shadow-2xl items-center'>
         <div className='flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow bg-[#2b2b36] sm:px-6 md:px-8 lg:px-10 my-auto'>
           <div className='self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white'>
-            Register for an Account
+            Your Account
           </div>
           <div className='mt-8'>
             <form onSubmit={submitHandler}>
@@ -150,18 +163,18 @@ const Register = ({ location, history }) => {
                   type='submit'
                   className='py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '
                 >
-                  Register
+                  Update
+                </button>
+              </div>
+              <div className='flex w-full mt-3'>
+                <button
+                  type='submit'
+                  className='py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '
+                >
+                  Delete this Account
                 </button>
               </div>
             </form>
-          </div>
-          <div className='flex items-center justify-center mt-6'>
-            <Link
-              to={redirect ? `/login?redirect=${redirect}` : '/login'}
-              className='inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white'
-            >
-              <span className='ml-2'>You already have an account?</span>
-            </Link>
           </div>
         </div>
       </div>
@@ -170,4 +183,4 @@ const Register = ({ location, history }) => {
   )
 }
 
-export default Register
+export default User
