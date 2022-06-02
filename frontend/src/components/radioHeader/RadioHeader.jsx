@@ -1,6 +1,6 @@
-import React from "react";
-import backArrow from "../../asset/back-arrow.png";
-import switchButton from "../../asset/switch.png";
+import React from 'react'
+import backArrow from '../../asset/back-arrow.png'
+import switchButton from '../../asset/switch.png'
 
 function RadioHeader() {
   return (
@@ -12,10 +12,10 @@ function RadioHeader() {
         <h1 className='text-[50px] text-white uppercase font-bold'>Stations</h1>
       </div>
       <div className='m-6 cursor-pointer'>
-        <img src={switchButton} alt='' />
+        <img src={switchButton} alt='custome' />
       </div>
     </div>
-  );
+  )
 }
 
-export default RadioHeader;
+export default RadioHeader

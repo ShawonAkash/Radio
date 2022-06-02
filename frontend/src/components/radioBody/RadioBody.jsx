@@ -2,21 +2,9 @@ import React, { useEffect, useState } from 'react'
 import minus from '../../asset/minus.png'
 import logo from '../../asset/logo.png'
 import plus from '../../asset/plus.png'
-import { useDispatch, useSelector } from 'react-redux'
-import { listStations } from '../../actions/stationActions'
 
 function RadioBody(props) {
   const { stations, selectedChannel, onSelectChannel } = props
-  const [selectedStation, setSelectedStation] = useState([])
-  // const dispatch = useDispatch()
-
-  // const stationList = useSelector((state) => state.stationList)
-  // const { loading, error, stations } = stationList
-  // console.log(stations)
-
-  // useEffect(() => {
-  //   dispatch(listStations())
-  // }, [dispatch])
 
   function showChannelDetail(channel) {
     if (selectedChannel && selectedChannel === channel) {
