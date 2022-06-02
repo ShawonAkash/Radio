@@ -177,6 +177,8 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     dispatch({
       type: USER_DELETE_SUCCESS,
     })
+    localStorage.removeItem('userInfo')
+    document.location.href = '/login'
   } catch (error) {
     dispatch({
       type: USER_DELETE_FAILED,

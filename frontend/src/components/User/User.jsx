@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify'
-import { getUserDetails, updateUserProfile } from '../../actions/userActions'
+import {
+  getUserDetails,
+  updateUserProfile,
+  deleteUser,
+} from '../../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 
 const User = ({ location, history }) => {
@@ -29,6 +33,9 @@ const User = ({ location, history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
+  const userDelete = useSelector((state) => state.userDelete)
+  const { success: successDelete } = userDelete
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
@@ -52,6 +59,11 @@ const User = ({ location, history }) => {
       setPassword('')
       setConfirmPassword('')
       toast.success('Profile Updated', toastOptions)
+    }
+  }
+  const handleDeleteUser = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteUser(id))
     }
   }
 
@@ -166,15 +178,16 @@ const User = ({ location, history }) => {
                   Update
                 </button>
               </div>
-              <div className='flex w-full mt-3'>
-                <button
-                  type='submit'
-                  className='py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '
-                >
-                  Delete this Account
-                </button>
-              </div>
             </form>
+            <div className='flex w-full mt-3'>
+              <button
+                onClick={() => handleDeleteUser(user._id)}
+                type='submit'
+                className='py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '
+              >
+                Delete this Account
+              </button>
+            </div>
           </div>
         </div>
       </div>
