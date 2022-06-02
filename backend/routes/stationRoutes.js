@@ -1,28 +1,11 @@
 import express from 'express'
-import asyncHandler from 'express-async-handler'
 const router = express.Router()
-import Stations from '../models/stationsModel.js'
+import {
+  getStations,
+  getStationById,
+} from '../controllers/stationController.js'
 
-router.get(
-  '/',
-  asyncHandler(async (req, res) => {
-    const stations = await Stations.find({})
-
-    res.json(stations)
-  })
-)
-router.get(
-  '/:id',
-  asyncHandler(async (req, res) => {
-    const station = await Stations.findById(req.params.id)
-    if (station) {
-      res.json(station)
-    } else {
-      res.status(404)
-      throw new Error('Product not found')
-    }
-    res.json(station)
-  })
-)
+router.route('/').get(getStations)
+router.route('/:id').get(getStationById)
 
 export default router
